@@ -13,7 +13,7 @@ If Drop Down it displays a Drop Down with categories names, if Checkboxes it dis
 
 Returns: 
 If Display Type is Drop Down returns the selected category Name or ID depending on Return Value selected type.
-If Display Type is Checkboxes returns an array of the selected categories Name or ID depending on Return Value selected type.
+If Display Type is Checkboxes returns an array of the selected categories Name or ID depending on Return Value selected type. 
 
 
 
