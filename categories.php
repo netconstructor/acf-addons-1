@@ -11,7 +11,6 @@
 		 *
 		 */
 
-
 	class Categories_field extends acf_Field {
 
 		/*--------------------------------------------------------------------------------------
@@ -93,11 +92,11 @@
 				}
 
 				$this->parent->create_field(array(
-					'type'    => 'select',
-					'name'    => 'fields[' . $key . '][post_type]',
-					'value'   => $field['post_type'],
-					'choices' => $types
-				));
+												 'type'    => 'select',
+												 'name'    => 'fields[' . $key . '][post_type]',
+												 'value'   => $field['post_type'],
+												 'choices' => $types
+											));
 				unset($types);
 				?>
 			</td>
@@ -115,10 +114,10 @@
 			</td>
 			<td>
 				<?php $this->parent->create_field(array(
-				'type'  => 'text',
-				'name'  => 'fields[' . $key . '][child_of]',
-				'value' => $field['child_of'],
-			));
+													   'type'  => 'text',
+													   'name'  => 'fields[' . $key . '][child_of]',
+													   'value' => $field['child_of'],
+												  ));
 				?>
 			</td>
 		</tr>
@@ -135,10 +134,10 @@
 			</td>
 			<td>
 				<?php $this->parent->create_field(array(
-				'type'  => 'text',
-				'name'  => 'fields[' . $key . '][parent]',
-				'value' => $field['parent'],
-			));
+													   'type'  => 'text',
+													   'name'  => 'fields[' . $key . '][parent]',
+													   'value' => $field['parent'],
+												  ));
 				?>
 			</td>
 		</tr>
@@ -155,16 +154,16 @@
 			</td>
 			<td>
 				<?php $this->parent->create_field(array(
-				'type'    => 'select',
-				'name'    => 'fields[' . $key . '][orderby]',
-				'value'   => $field['orderby'],
-				'choices' => array(
-					'id'    => 'Category ID',
-					'name'  => 'Category Title',
-					'slug'  => 'Category Slug',
-					'count' => 'Categories Count'
-				)
-			));
+													   'type'    => 'select',
+													   'name'    => 'fields[' . $key . '][orderby]',
+													   'value'   => $field['orderby'],
+													   'choices' => array(
+														   'id'    => 'Category ID',
+														   'name'  => 'Category Title',
+														   'slug'  => 'Category Slug',
+														   'count' => 'Categories Count'
+													   )
+												  ));
 				?>
 			</td>
 		</tr>
@@ -181,15 +180,15 @@
 			</td>
 			<td>
 				<?php $this->parent->create_field(array(
-				'type'    => 'radio',
-				'name'    => 'fields[' . $key . '][order]',
-				'value'   => $field['order'],
-				'choices' => array(
-					'ASC'  => 'Asc',
-					'DESC' => 'Desc',
-				),
-				'layout'  => 'horizontal',
-			));
+													   'type'    => 'radio',
+													   'name'    => 'fields[' . $key . '][order]',
+													   'value'   => $field['order'],
+													   'choices' => array(
+														   'ASC'  => 'Asc',
+														   'DESC' => 'Desc',
+													   ),
+													   'layout'  => 'horizontal',
+												  ));
 				?>
 			</td>
 		</tr>
@@ -206,15 +205,15 @@
 			</td>
 			<td>
 				<?php $this->parent->create_field(array(
-				'type'    => 'radio',
-				'name'    => 'fields[' . $key . '][hide_empty]',
-				'value'   => $field['hide_empty'],
-				'choices' => array(
-					'1' => 'Yes',
-					'0' => 'No',
-				),
-				'layout'  => 'horizontal',
-			));
+													   'type'    => 'radio',
+													   'name'    => 'fields[' . $key . '][hide_empty]',
+													   'value'   => $field['hide_empty'],
+													   'choices' => array(
+														   '1' => 'Yes',
+														   '0' => 'No',
+													   ),
+													   'layout'  => 'horizontal',
+												  ));
 				?>
 			</td>
 		</tr>
@@ -231,15 +230,15 @@
 			</td>
 			<td>
 				<?php $this->parent->create_field(array(
-				'type'    => 'radio',
-				'name'    => 'fields[' . $key . '][hierarchical]',
-				'value'   => $field['hierarchical'],
-				'choices' => array(
-					'1' => 'Yes',
-					'0' => 'No',
-				),
-				'layout'  => 'horizontal',
-			));
+													   'type'    => 'radio',
+													   'name'    => 'fields[' . $key . '][hierarchical]',
+													   'value'   => $field['hierarchical'],
+													   'choices' => array(
+														   '1' => 'Yes',
+														   '0' => 'No',
+													   ),
+													   'layout'  => 'horizontal',
+												  ));
 				?>
 			</td>
 		</tr>
@@ -268,11 +267,11 @@
 				}
 
 				$this->parent->create_field(array(
-					'type'    => 'select',
-					'name'    => 'fields[' . $key . '][taxonomy]',
-					'value'   => $field['taxonomy'],
-					'choices' => $taxonomies
-				));
+												 'type'    => 'select',
+												 'name'    => 'fields[' . $key . '][taxonomy]',
+												 'value'   => $field['taxonomy'],
+												 'choices' => $taxonomies
+											));
 
 				unset($taxonomies);
 				?>
@@ -291,10 +290,10 @@
 			</td>
 			<td>
 				<?php $this->parent->create_field(array(
-				'type'  => 'text',
-				'name'  => 'fields[' . $key . '][include]',
-				'value' => $field['include'],
-			));
+													   'type'  => 'text',
+													   'name'  => 'fields[' . $key . '][include]',
+													   'value' => $field['include'],
+												  ));
 				?>
 			</td>
 		</tr>
@@ -311,10 +310,10 @@
 			</td>
 			<td>
 				<?php $this->parent->create_field(array(
-				'type'  => 'text',
-				'name'  => 'fields[' . $key . '][exclude]',
-				'value' => $field['exclude'],
-			));
+													   'type'  => 'text',
+													   'name'  => 'fields[' . $key . '][exclude]',
+													   'value' => $field['exclude'],
+												  ));
 				?>
 			</td>
 		</tr>
@@ -327,14 +326,14 @@
 			</td>
 			<td>
 				<?php $this->parent->create_field(array(
-				'type'    => 'select',
-				'name'    => 'fields[' . $key . '][display_type]',
-				'value'   => $field['display_type'],
-				'choices' => array(
-					'drop_down'  => 'Drop Down',
-					'checkboxes' => 'Checkboxes',
-				)
-			));
+													   'type'    => 'select',
+													   'name'    => 'fields[' . $key . '][display_type]',
+													   'value'   => $field['display_type'],
+													   'choices' => array(
+														   'drop_down'  => 'Drop Down',
+														   'checkboxes' => 'Checkboxes',
+													   )
+												  ));
 				?>
 			</td>
 		</tr>
@@ -343,22 +342,25 @@
 			<td class="label">
 				<label><?php _e("Return Value", 'acf');?></label>
 
-				<p class="description">The return type when retrieving value from API. ID, Name or <a
+				<p class="description">The return type when retrieving value from API. ID, Name, Taxonomy, Parent, Link <a
 					href="http://codex.wordpress.org/Function_Reference/wp_dropdown_categories" target="_blank">Dropdown
 					- See Documentation</a>
 				</p>
 			</td>
 			<td>
 				<?php $this->parent->create_field(array(
-				'type'    => 'select',
-				'name'    => 'fields[' . $key . '][ret_val]',
-				'value'   => $field['ret_val'],
-				'choices' => array(
-					'1' => 'Category Name',
-					'0' => 'Category ID',
-					'2' => 'Categories DropDown'
-				)
-			));
+													   'type'    => 'select',
+													   'name'    => 'fields[' . $key . '][ret_val]',
+													   'value'   => $field['ret_val'],
+													   'choices' => array(
+														   'category_name'         => 'Category Name',
+														   'category_id'           => 'Category ID',
+														   'category_dropdown'     => 'Categories DropDown',
+														   'category_taxonomy'     => 'Categories Taxonomy',
+														   'category_parent'       => 'Categories Parent',
+														   'category_link'         => 'Categories Link'
+													   )
+												  ));
 				?>
 			</td>
 		</tr>
@@ -517,7 +519,6 @@
 		function update_value($post_id, $field, $value) {
 			// do stuff with value
 
-
 			// save value
 			parent::update_value($post_id, $field, $value);
 		}
@@ -593,39 +594,73 @@
 				'echo'         => 0
 			);
 
-			if ($field['ret_val'] == 2) {
-				return wp_dropdown_categories($args);
-			}
-
 			if ($field['display_type'] == 'drop_down') {
 				$value = get_term_by('slug', $value, $field['taxonomy']);
 
-				if ($field['ret_val'] == 1) {
-					$ret_val = $value->name;
-				} else {
-					$ret_val = $value->term_id;
+				switch ($field['ret_val']) {
+					case 'category_name':
+						$ret_val = $value->name;
+						break;
+					case 'category_dropdown':
+						return wp_dropdown_categories($args);
+						break;
+					case 'category_id':
+						$ret_val = $value->term_id;
+						break;
+					case 'category_taxonomy':
+						$ret_val = $value->taxonomy;
+						break;
+					case 'category_parent':
+						$ret_val = $value->parent;
+						break;
+					case 'category_link':
+						$category_link = get_term_link($value->slug, $value->taxonomy);
+						$ret_val       = $category_link;
+						break;
 				}
 			}
 
 			if ($field['display_type'] == 'checkboxes') {
 				$ret_val = array();
 
-				if ($field['ret_val'] == 1) {
-					foreach ($value as $ret_value) {
-						$value = get_term_by('slug', $ret_value, $field['taxonomy']);
-						array_push($ret_val, $value->name);
-					}
-
-				} else {
-					foreach ($value as $ret_value) {
-						$value = get_term_by('slug', $ret_value, $field['taxonomy']);
-						array_push($ret_val, $value->term_id);
-					}
-
+				switch ($field['ret_val']) {
+					case 'category_name':
+						foreach ($value as $ret_value) {
+							$value = get_term_by('slug', $ret_value, $field['taxonomy']);
+							array_push($ret_val, $value->name);
+						}
+						break;
+					case 'category_dropdown':
+						return null;
+						break;
+					case 'category_id':
+						foreach ($value as $ret_value) {
+							$value = get_term_by('slug', $ret_value, $field['taxonomy']);
+							array_push($ret_val, $value->term_id);
+						}
+						break;
+					case 'category_taxonomy':
+						foreach ($value as $ret_value) {
+							$value = get_term_by('slug', $ret_value, $field['taxonomy']);
+							array_push($ret_val, $value->taxonomy);
+						}
+						break;
+					case 'category_parent':
+						foreach ($value as $ret_value) {
+							$value = get_term_by('slug', $ret_value, $field['taxonomy']);
+							array_push($ret_val, $value->parent);
+						}
+						break;
+					case 'category_link':
+						foreach ($value as $ret_value) {
+							$value         = get_term_by('slug', $ret_value, $field['taxonomy']);
+							$category_link = get_term_link($value->slug, $value->taxonomy);
+							array_push($ret_val, $category_link);
+						}
+						break;
 				}
 			}
-
-			// return value
+			
 			return $ret_val;
 		}
 
