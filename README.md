@@ -5,6 +5,7 @@ Unique Key is custom field that generates a unique key for you to use it as a un
 
 To use it in your theme just copy categories.php and/or unique_key.php in your themes folder or subfolder and in your functions.php paste the following code:
 
+<h1>Usage</h1>
 <pre>if (functionexists('registerfield')) { 
   register_field('Categories_field', dirname(File) . '/categories.php'); 
   register_field('Categories_field', dirname(File) . '/unique_key.php'); 
