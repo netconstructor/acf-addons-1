@@ -3,7 +3,7 @@ These are some addons for the AFC Wordpress plugin http://www.advancedcustomfiel
 Categories is custom field that generates a drop down field with all the categories from your wordpress site.
 Unique Key is custom field that generates a unique key for you to use it as a unique number or as a password.
 
-To use it in your theme just copy categories.php and/or unique_key.php in your themes folder or subfolder and in your functions.php paste the following code:
+To use it in your theme just copy categories.php and/or unique_key.php in your themes folder or subfolder and in your <strong>functions.php</strong> paste the following code:
 
 <h1>Usage</h1>
 <pre>if (function_exists('register_field')) { 
