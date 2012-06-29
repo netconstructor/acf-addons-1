@@ -7,13 +7,13 @@ To use it in your theme just copy categories.php and/or unique_key.php in your t
 
 <h1>Usage</h1>
 <pre>if (function_exists('register_field')) { 
-  register_field('Categories_field', dirname(File) . '/categories.php'); 
-  register_field('Categories_field', dirname(File) . '/unique_key.php'); 
+  register_field('Categories_field', dirname(__File__) . '/categories.php'); 
+  register_field('Unique_key_field', dirname(__File__) . '/unique_key.php'); 
 }</pre>
 
 If you decide to put the files in a sub folder then you can use something like that
 
 <pre>if (function_exists('register_field')) { 
-  register_field('Categories_field', dirname(File) . '/subfolder_name/categories.php'); 
-  register_field('Categories_field', dirname(File) . '/subfolder_name/unique_key.php');
+  register_field('Categories_field', dirname(__File__) . '/subfolder_name/categories.php'); 
+  register_field('Unique_key_field', dirname(__File__) . '/subfolder_name/unique_key.php');
 }</pre>
