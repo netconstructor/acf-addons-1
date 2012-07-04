@@ -17,3 +17,6 @@ If you decide to put the files in a sub folder then you can use something like t
   register_field('Categories_field', dirname(__File__) . '/subfolder_name/categories.php'); 
   register_field('Unique_key_field', dirname(__File__) . '/subfolder_name/unique_key.php');
 }</pre>
+
+<h1>To Do</h1>
+Add Show All - Show None to categories field
