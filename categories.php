@@ -63,8 +63,7 @@
 			$field['display_type'] = isset($field['display_type']) ? $field['display_type'] : '1';
 			$field['ret_val']      = isset($field['ret_val']) ? $field['ret_val'] : '1';
 			$field['orderby']      = isset($field['orderby']) ? $field['orderby'] : 'id';
-			$field['order']        = isset($field['order']) ? $field['order'] : 'ASC';
-			$field['override']     = isset($field['override']) ? $field['override'] : '1'; ?>
+			$field['order']        = isset($field['order']) ? $field['order'] : 'ASC'; ?>
 
 		<tr class="field_option field_option_<?php echo $this->name;?>">
 			<td class="label">
@@ -340,6 +339,52 @@
 
 		<tr class="field_option field_option_<?php echo $this->name;?>">
 			<td class="label">
+				<label><?php _e("Show All", 'acf');?></label>
+
+				<p class="description">
+					If the 'show all' categories option should be visible
+				</p>
+			</td>
+			<td>
+				<?php $this->parent->create_field(array(
+													   'type'    => 'radio',
+													   'name'    => 'fields[' . $key . '][show_all]',
+													   'value'   => $field['show_all'],
+													   'choices' => array(
+														   '1' => 'Yes',
+														   '0' => 'No',
+													   ),
+													   'layout'  => 'horizontal',
+												  ));
+				?>
+			</td>
+		</tr>
+
+		<tr class="field_option field_option_<?php echo $this->name;?>">
+			<td class="label">
+				<label><?php _e("Show None", 'acf');?></label>
+
+				<p class="description">
+					If the 'show none' categories option should be visible
+				</p>
+			</td>
+			<td>
+				<?php $this->parent->create_field(array(
+													   'type'    => 'radio',
+													   'name'    => 'fields[' . $key . '][show_none]',
+													   'value'   => $field['show_none'],
+													   'choices' => array(
+														   '1' => 'Yes',
+														   '0' => 'No',
+													   ),
+													   'layout'  => 'horizontal',
+												  ));
+				?>
+			</td>
+		</tr>
+
+		<tr class="field_option field_option_<?php echo $this->name;?>">
+			<td class="label">
 				<label><?php _e("Return Value", 'acf');?></label>
 
 				<p class="description">The return type when retrieving value from API. ID, Name, Taxonomy, Parent, Link <a
@@ -407,6 +452,8 @@
 			$exclude        = (isset($field['exclude'])) ? (empty($field['exclude']) ? '' : $field['exclude']) : '';
 			$orderby        = (isset($field['orderby'])) ? (empty($field['orderby']) ? 'name' : $field['orderby']) : 'name';
 			$order          = (isset($field['order'])) ? (empty($field['order']) ? 'ASC' : $field['order']) : 'ASC';
+			$show_all       = isset($field['show_all']) ? $field['show_all'] : '1';
+			$show_none      = isset($field['show_none']) ? $field['show_none'] : '1';
 
 			$args = array(
 				'type'         => $type,
@@ -428,22 +475,58 @@
 			?>
 
 		<?php if ($field['display_type'] == 'drop_down') : ?>
-			<select id="<?php echo $field['name'] ?>" class="<?php echo $field['class'] ?>"
-					name="<?php echo $field['name'] ?>">
+			<select id="<?php echo $field['name'] ?>" class="<?php echo $field['class'] ?>" name="<?php echo $field['name'] ?>">
+				<?php if ($show_all): ?>
+				<?php if ($selected_value == "all") {
+					$is_selected = 'selected="selected"';
+				} ?>
+				<option value="all" <?php echo $is_selected ?>>Show All</option>
+				<?php endif ?>
+
+				<?php if ($show_none): ?>
+				<?php if ($selected_value == "none") {
+					$is_selected = 'selected="selected"';
+				} ?>
+				<option value="none" <?php echo $is_selected ?>>Show None</option>
+				<?php endif ?>
+
 				<?php foreach ($categories as $category) : ?>
 				<?php if ($category->slug == $selected_value) {
 					$is_selected = 'selected="selected"';
 				} else {
 					$is_selected = '';
 				} ?>
-				<option
-					value="<?php echo $category->slug ?>" <?php echo $is_selected ?>><?php echo $category->name ?></option>
+				<option value="<?php echo $category->slug ?>" <?php echo $is_selected ?>><?php echo $category->name ?></option>
 				<?php endforeach ?>
 			</select>
 			<?php endif ?>
 
 		<?php if ($field['display_type'] == 'checkboxes') : ?>
 			<ul>
+				<?php if ($show_all): ?>
+				<?php if (in_array("all", $field['value'])) {
+					$is_selected = 'checked';
+				} else {
+					$is_selected = '';
+				} ?>
+				<li>
+					<input id="<?php echo $field['name'] . '[]' ?>" name="<?php echo $field['name'] . '[]' ?>"
+						   type="checkbox" value="all" <?php echo $is_selected ?> />&nbsp;Show All
+				</li>
+				<?php endif ?>
+
+				<?php if ($show_none): ?>
+				<?php if (in_array("none", $field['value'])) {
+					$is_selected = 'checked';
+				} else {
+					$is_selected = '';
+				} ?>
+				<li>
+					<input id="<?php echo $field['name'] . '[]' ?>" name="<?php echo $field['name'] . '[]' ?>"
+						   type="checkbox" value="none" <?php echo $is_selected ?> />&nbsp;Show None
+				</li>
+				<?php endif ?>
+
 				<?php foreach ($categories as $category) : ?>
 				<?php if (is_array($field['value'])): ?>
 					<?php if (in_array($category->slug, $field['value'])) {
@@ -454,8 +537,7 @@
 					<?php endif ?>
 				<li>
 					<input id="<?php echo $field['name'] . '[]' ?>" name="<?php echo $field['name'] . '[]' ?>"
-						   type="checkbox"
-						   value="<?php echo $category->slug ?>" <?php echo $is_selected ?> />&nbsp;<?php echo $category->name ?>
+						   type="checkbox" value="<?php echo $category->slug ?>" <?php echo $is_selected ?> />&nbsp;<?php echo $category->name ?>
 				</li>
 				<?php endforeach ?>
 			</ul>
@@ -578,6 +660,7 @@
 			$exclude      = (isset($field['exclude'])) ? (empty($field['exclude']) ? '' : $field['exclude']) : '';
 			$orderby      = (isset($field['orderby'])) ? (empty($field['orderby']) ? 'name' : $field['orderby']) : 'name';
 			$order        = (isset($field['order'])) ? (empty($field['order']) ? 'ASC' : $field['order']) : 'ASC';
+			$is_all       = false;
 
 			$args = array(
 				'type'         => $type,
@@ -595,6 +678,10 @@
 			);
 
 			if ($field['display_type'] == 'drop_down') {
+				if ($value == "all" || $value == "none") {
+					return $value;
+				}
+
 				$value = get_term_by('slug', $value, $field['taxonomy']);
 
 				switch ($field['ret_val']) {
@@ -620,13 +707,29 @@
 				}
 			}
 
+
 			if ($field['display_type'] == 'checkboxes') {
 				$ret_val = array();
+
+				if (is_array($value)) {
+					if (in_array("none", $value)) {
+						return $value;
+					}
+
+					if (in_array("all", $value)) {
+						$value  = get_categories($args);
+						$is_all = true;
+					}
+				}
 
 				switch ($field['ret_val']) {
 					case 'category_name':
 						foreach ($value as $ret_value) {
-							$value = get_term_by('slug', $ret_value, $field['taxonomy']);
+							if ($is_all) {
+								$value = get_term_by('slug', $ret_value->slug, $field['taxonomy']);
+							} else {
+								$value = get_term_by('slug', $ret_value, $field['taxonomy']);
+							}
 							array_push($ret_val, $value->name);
 						}
 						break;
@@ -635,35 +738,54 @@
 						break;
 					case 'category_id':
 						foreach ($value as $ret_value) {
-							$value = get_term_by('slug', $ret_value, $field['taxonomy']);
+							if ($is_all) {
+								$value = get_term_by('slug', $ret_value->slug, $field['taxonomy']);
+							} else {
+								$value = get_term_by('slug', $ret_value, $field['taxonomy']);
+							}
 							array_push($ret_val, $value->term_id);
 						}
 						break;
 					case 'category_taxonomy':
 						foreach ($value as $ret_value) {
-							$value = get_term_by('slug', $ret_value, $field['taxonomy']);
+							if ($is_all) {
+								$value = get_term_by('slug', $ret_value->slug, $field['taxonomy']);
+							} else {
+								$value = get_term_by('slug', $ret_value, $field['taxonomy']);
+							}
 							array_push($ret_val, $value->taxonomy);
 						}
 						break;
 					case 'category_parent':
 						foreach ($value as $ret_value) {
-							$value = get_term_by('slug', $ret_value, $field['taxonomy']);
+							if ($is_all) {
+								$value = get_term_by('slug', $ret_value->slug, $field['taxonomy']);
+							} else {
+								$value = get_term_by('slug', $ret_value, $field['taxonomy']);
+							}
 							array_push($ret_val, $value->parent);
 						}
 						break;
 					case 'category_link':
 						foreach ($value as $ret_value) {
-							$value         = get_term_by('slug', $ret_value, $field['taxonomy']);
+							if ($is_all) {
+								$value = get_term_by('slug', $ret_value->slug, $field['taxonomy']);
+							} else {
+								$value = get_term_by('slug', $ret_value, $field['taxonomy']);
+							}
 							$category_link = get_term_link($value->slug, $value->taxonomy);
 							array_push($ret_val, $category_link);
 						}
 						break;
 				}
 			}
-			
+
 			return $ret_val;
 		}
 
 	}
 
 ?>
+
+
+
