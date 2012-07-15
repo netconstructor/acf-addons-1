@@ -14,60 +14,61 @@
 	class Categories_field extends acf_Field {
 
 		/*--------------------------------------------------------------------------------------
-				 *
-				 *	Constructor
-				 *	- This function is called when the field class is initalized on each page.
-				 *	- Here you can add filters / actions and setup any other functionality for your field
-				 *
-				 *	@author Elliot Condon
-				 *	@since 2.2.0
-				 *
-				 *-------------------------------------------------------------------------------------*/
+						 *
+						 *	Constructor
+						 *	- This function is called when the field class is initalized on each page.
+						 *	- Here you can add filters / actions and setup any other functionality for your field
+						 *
+						 *	@author Elliot Condon
+						 *	@since 2.2.0
+						 *
+						 *-------------------------------------------------------------------------------------*/
 
-		function __construct($parent) {
+		function __construct( $parent ) {
 			// do not delete!
-			parent::__construct($parent);
+			parent::__construct( $parent );
 			// set name / title
 			$this->name = 'categories';
 			// variable name (no spaces / special characters / etc)
-			$this->title = __("Categories", 'acf');
+			$this->title = __( "Categories", 'acf' );
 			// field label (Displayed in edit screens)
 
 		}
 
-		/*--------------------------------------------------------------------------------------
-				   *
-				   *	create_options
-				   *	- this function is called from core/field_meta_box.php to create extra options
-				   *	for your field
-				   *
-				   *	@params
-				   *	- $key (int) - the $_POST obejct key required to save the options to the field
-				   *	- $field (array) - the field object
-				   *
-				   *	@author Nontas Ravazoulas
-				   *	@since 1.0.0
-				   *
-				   *-------------------------------------------------------------------------------------*/
 
-		function create_options($key, $field) {
+		/*--------------------------------------------------------------------------------------
+						   *
+						   *	create_options
+						   *	- this function is called from core/field_meta_box.php to create extra options
+						   *	for your field
+						   *
+						   *	@params
+						   *	- $key (int) - the $_POST obejct key required to save the options to the field
+						   *	- $field (array) - the field object
+						   *
+						   *	@author Nontas Ravazoulas
+						   *	@since 1.0.0
+						   *
+						   *-------------------------------------------------------------------------------------*/
+
+		function create_options( $key, $field ) {
 			// defaults
-			$field['post_type']    = isset($field['post_type']) ? $field['post_type'] : 'post';
-			$field['child_of']     = isset($field['child_of']) ? $field['child_of'] : '0';
-			$field['parent']       = isset($field['parent']) ? $field['parent'] : '';
-			$field['hide_empty']   = isset($field['hide_empty']) ? $field['hide_empty'] : '1';
-			$field['hierarchical'] = isset($field['hierarchical']) ? $field['hierarchical'] : '1';
-			$field['taxonomy']     = isset($field['taxonomy']) ? $field['taxonomy'] : 'category';
-			$field['include']      = isset($field['include']) ? $field['include'] : '';
-			$field['exclude']      = isset($field['exclude']) ? $field['exclude'] : '';
-			$field['display_type'] = isset($field['display_type']) ? $field['display_type'] : '1';
-			$field['ret_val']      = isset($field['ret_val']) ? $field['ret_val'] : '1';
-			$field['orderby']      = isset($field['orderby']) ? $field['orderby'] : 'id';
-			$field['order']        = isset($field['order']) ? $field['order'] : 'ASC'; ?>
+			$field['post_type']    = isset( $field['post_type'] ) ? $field['post_type'] : 'post';
+			$field['child_of']     = isset( $field['child_of'] ) ? $field['child_of'] : '0';
+			$field['parent']       = isset( $field['parent'] ) ? $field['parent'] : '';
+			$field['hide_empty']   = isset( $field['hide_empty'] ) ? $field['hide_empty'] : '1';
+			$field['hierarchical'] = isset( $field['hierarchical'] ) ? $field['hierarchical'] : '1';
+			$field['taxonomy']     = isset( $field['taxonomy'] ) ? $field['taxonomy'] : 'category';
+			$field['include']      = isset( $field['include'] ) ? $field['include'] : '';
+			$field['exclude']      = isset( $field['exclude'] ) ? $field['exclude'] : '';
+			$field['display_type'] = isset( $field['display_type'] ) ? $field['display_type'] : '1';
+			$field['ret_val']      = isset( $field['ret_val'] ) ? $field['ret_val'] : 'category_slug';
+			$field['orderby']      = isset( $field['orderby'] ) ? $field['orderby'] : 'id';
+			$field['order']        = isset( $field['order'] ) ? $field['order'] : 'ASC'; ?>
 
 		<tr class="field_option field_option_<?php echo $this->name;?>">
 			<td class="label">
-				<label><?php _e("Type", 'acf');?></label>
+				<label><?php _e( "Type", 'acf' );?></label>
 
 				<p class="description">
 					<a href="http://codex.wordpress.org/Function_Reference/get_categories"
@@ -78,32 +79,32 @@
 			</td>
 			<td>
 				<?php
-				$args          = array(
+				$args          = array (
 					'public'   => true,
-					'_builtin' => FALSE
+					'_builtin' => false
 				);
-				$post_types    = get_post_types($args, 'objects');
-				$types         = array();
+				$post_types    = get_post_types( $args, 'objects' );
+				$types         = array ();
 				$types['post'] = 'Post';
 
-				foreach ($post_types as $post_type) {
+				foreach ( $post_types as $post_type ) {
 					$types[$post_type->name] = $post_type->label;
 				}
 
-				$this->parent->create_field(array(
-												 'type'    => 'select',
-												 'name'    => 'fields[' . $key . '][post_type]',
-												 'value'   => $field['post_type'],
-												 'choices' => $types
-											));
-				unset($types);
+				$this->parent->create_field( array (
+												   'type'    => 'select',
+												   'name'    => 'fields[' . $key . '][post_type]',
+												   'value'   => $field['post_type'],
+												   'choices' => $types
+											 ) );
+				unset( $types );
 				?>
 			</td>
 		</tr>
 
 		<tr class="field_option field_option_<?php echo $this->name;?>">
 			<td class="label">
-				<label><?php _e("Child Of", 'acf');?></label>
+				<label><?php _e( "Child Of", 'acf' );?></label>
 
 				<p class="description">
 					<a href="http://codex.wordpress.org/Function_Reference/get_categories"
@@ -112,18 +113,18 @@
 				</p>
 			</td>
 			<td>
-				<?php $this->parent->create_field(array(
-													   'type'  => 'text',
-													   'name'  => 'fields[' . $key . '][child_of]',
-													   'value' => $field['child_of'],
-												  ));
+				<?php $this->parent->create_field( array (
+														 'type'  => 'text',
+														 'name'  => 'fields[' . $key . '][child_of]',
+														 'value' => $field['child_of'],
+												   ) );
 				?>
 			</td>
 		</tr>
 
 		<tr class="field_option field_option_<?php echo $this->name;?>">
 			<td class="label">
-				<label><?php _e("Parent", 'acf');?></label>
+				<label><?php _e( "Parent", 'acf' );?></label>
 
 				<p class="description">
 					<a href="http://codex.wordpress.org/Function_Reference/get_categories"
@@ -132,18 +133,18 @@
 				</p>
 			</td>
 			<td>
-				<?php $this->parent->create_field(array(
-													   'type'  => 'text',
-													   'name'  => 'fields[' . $key . '][parent]',
-													   'value' => $field['parent'],
-												  ));
+				<?php $this->parent->create_field( array (
+														 'type'  => 'text',
+														 'name'  => 'fields[' . $key . '][parent]',
+														 'value' => $field['parent'],
+												   ) );
 				?>
 			</td>
 		</tr>
 
 		<tr class="field_option field_option_<?php echo $this->name;?>">
 			<td class="label">
-				<label><?php _e("Order By", 'acf');?></label>
+				<label><?php _e( "Order By", 'acf' );?></label>
 
 				<p class="description">
 					<a href="http://codex.wordpress.org/Function_Reference/get_categories"
@@ -152,24 +153,24 @@
 				</p>
 			</td>
 			<td>
-				<?php $this->parent->create_field(array(
-													   'type'    => 'select',
-													   'name'    => 'fields[' . $key . '][orderby]',
-													   'value'   => $field['orderby'],
-													   'choices' => array(
-														   'id'    => 'Category ID',
-														   'name'  => 'Category Title',
-														   'slug'  => 'Category Slug',
-														   'count' => 'Categories Count'
-													   )
-												  ));
+				<?php $this->parent->create_field( array (
+														 'type'    => 'select',
+														 'name'    => 'fields[' . $key . '][orderby]',
+														 'value'   => $field['orderby'],
+														 'choices' => array (
+															 'id'    => 'Category ID',
+															 'name'  => 'Category Title',
+															 'slug'  => 'Category Slug',
+															 'count' => 'Categories Count'
+														 )
+												   ) );
 				?>
 			</td>
 		</tr>
 
 		<tr class="field_option field_option_<?php echo $this->name;?>">
 			<td class="label">
-				<label><?php _e("Order", 'acf');?></label>
+				<label><?php _e( "Order", 'acf' );?></label>
 
 				<p class="description">
 					<a href="http://codex.wordpress.org/Function_Reference/get_categories"
@@ -178,23 +179,23 @@
 				</p>
 			</td>
 			<td>
-				<?php $this->parent->create_field(array(
-													   'type'    => 'radio',
-													   'name'    => 'fields[' . $key . '][order]',
-													   'value'   => $field['order'],
-													   'choices' => array(
-														   'ASC'  => 'Asc',
-														   'DESC' => 'Desc',
-													   ),
-													   'layout'  => 'horizontal',
-												  ));
+				<?php $this->parent->create_field( array (
+														 'type'    => 'radio',
+														 'name'    => 'fields[' . $key . '][order]',
+														 'value'   => $field['order'],
+														 'choices' => array (
+															 'ASC'  => 'Asc',
+															 'DESC' => 'Desc',
+														 ),
+														 'layout'  => 'horizontal',
+												   ) );
 				?>
 			</td>
 		</tr>
 
 		<tr class="field_option field_option_<?php echo $this->name;?>">
 			<td class="label">
-				<label><?php _e("Hide Empty", 'acf');?></label>
+				<label><?php _e( "Hide Empty", 'acf' );?></label>
 
 				<p class="description">
 					<a href="http://codex.wordpress.org/Function_Reference/get_categories"
@@ -203,23 +204,23 @@
 				</p>
 			</td>
 			<td>
-				<?php $this->parent->create_field(array(
-													   'type'    => 'radio',
-													   'name'    => 'fields[' . $key . '][hide_empty]',
-													   'value'   => $field['hide_empty'],
-													   'choices' => array(
-														   '1' => 'Yes',
-														   '0' => 'No',
-													   ),
-													   'layout'  => 'horizontal',
-												  ));
+				<?php $this->parent->create_field( array (
+														 'type'    => 'radio',
+														 'name'    => 'fields[' . $key . '][hide_empty]',
+														 'value'   => $field['hide_empty'],
+														 'choices' => array (
+															 '1' => 'Yes',
+															 '0' => 'No',
+														 ),
+														 'layout'  => 'horizontal',
+												   ) );
 				?>
 			</td>
 		</tr>
 
 		<tr class="field_option field_option_<?php echo $this->name;?>">
 			<td class="label">
-				<label><?php _e("Hierarchical", 'acf');?></label>
+				<label><?php _e( "Hierarchical", 'acf' );?></label>
 
 				<p class="description">
 					<a href="http://codex.wordpress.org/Function_Reference/get_categories"
@@ -228,23 +229,23 @@
 				</p>
 			</td>
 			<td>
-				<?php $this->parent->create_field(array(
-													   'type'    => 'radio',
-													   'name'    => 'fields[' . $key . '][hierarchical]',
-													   'value'   => $field['hierarchical'],
-													   'choices' => array(
-														   '1' => 'Yes',
-														   '0' => 'No',
-													   ),
-													   'layout'  => 'horizontal',
-												  ));
+				<?php $this->parent->create_field( array (
+														 'type'    => 'radio',
+														 'name'    => 'fields[' . $key . '][hierarchical]',
+														 'value'   => $field['hierarchical'],
+														 'choices' => array (
+															 '1' => 'Yes',
+															 '0' => 'No',
+														 ),
+														 'layout'  => 'horizontal',
+												   ) );
 				?>
 			</td>
 		</tr>
 
 		<tr class="field_option field_option_<?php echo $this->name;?>">
 			<td class="label">
-				<label><?php _e("Taxonomy", 'acf');?></label>
+				<label><?php _e( "Taxonomy", 'acf' );?></label>
 
 				<p class="description">
 					<a href="http://codex.wordpress.org/Function_Reference/get_categories"
@@ -255,31 +256,31 @@
 			</td>
 			<td>
 				<?php
-				$args       = array(
+				$args       = array (
 					'public' => true
 				);
-				$post_types = get_taxonomies($args, 'objects');
-				$taxonomies = array();
+				$post_types = get_taxonomies( $args, 'objects' );
+				$taxonomies = array ();
 
-				foreach ($post_types as $post_type) {
+				foreach ( $post_types as $post_type ) {
 					$taxonomies[$post_type->name] = $post_type->label;
 				}
 
-				$this->parent->create_field(array(
-												 'type'    => 'select',
-												 'name'    => 'fields[' . $key . '][taxonomy]',
-												 'value'   => $field['taxonomy'],
-												 'choices' => $taxonomies
-											));
+				$this->parent->create_field( array (
+												   'type'    => 'select',
+												   'name'    => 'fields[' . $key . '][taxonomy]',
+												   'value'   => $field['taxonomy'],
+												   'choices' => $taxonomies
+											 ) );
 
-				unset($taxonomies);
+				unset( $taxonomies );
 				?>
 			</td>
 		</tr>
 
 		<tr class="field_option field_option_<?php echo $this->name;?>">
 			<td class="label">
-				<label><?php _e("Include Categories", 'acf');?></label>
+				<label><?php _e( "Include Categories", 'acf' );?></label>
 
 				<p class="description">
 					<a href="http://codex.wordpress.org/Function_Reference/get_categories"
@@ -288,18 +289,18 @@
 				</p>
 			</td>
 			<td>
-				<?php $this->parent->create_field(array(
-													   'type'  => 'text',
-													   'name'  => 'fields[' . $key . '][include]',
-													   'value' => $field['include'],
-												  ));
+				<?php $this->parent->create_field( array (
+														 'type'  => 'text',
+														 'name'  => 'fields[' . $key . '][include]',
+														 'value' => $field['include'],
+												   ) );
 				?>
 			</td>
 		</tr>
 
 		<tr class="field_option field_option_<?php echo $this->name;?>">
 			<td class="label">
-				<label><?php _e("Exclude Categories", 'acf');?></label>
+				<label><?php _e( "Exclude Categories", 'acf' );?></label>
 
 				<p class="description">
 					<a href="http://codex.wordpress.org/Function_Reference/get_categories"
@@ -308,84 +309,84 @@
 				</p>
 			</td>
 			<td>
-				<?php $this->parent->create_field(array(
-													   'type'  => 'text',
-													   'name'  => 'fields[' . $key . '][exclude]',
-													   'value' => $field['exclude'],
-												  ));
+				<?php $this->parent->create_field( array (
+														 'type'  => 'text',
+														 'name'  => 'fields[' . $key . '][exclude]',
+														 'value' => $field['exclude'],
+												   ) );
 				?>
 			</td>
 		</tr>
 
 		<tr class="field_option field_option_<?php echo $this->name;?>">
 			<td class="label">
-				<label><?php _e("Display Type", 'acf');?></label>
+				<label><?php _e( "Display Type", 'acf' );?></label>
 
 				<p class="description">The display type in admin area. Dropdown or Multicheckboxes</p>
 			</td>
 			<td>
-				<?php $this->parent->create_field(array(
-													   'type'    => 'select',
-													   'name'    => 'fields[' . $key . '][display_type]',
-													   'value'   => $field['display_type'],
-													   'choices' => array(
-														   'drop_down'  => 'Drop Down',
-														   'checkboxes' => 'Checkboxes',
-													   )
-												  ));
+				<?php $this->parent->create_field( array (
+														 'type'    => 'select',
+														 'name'    => 'fields[' . $key . '][display_type]',
+														 'value'   => $field['display_type'],
+														 'choices' => array (
+															 'drop_down'  => 'Drop Down',
+															 'checkboxes' => 'Checkboxes',
+														 )
+												   ) );
 				?>
 			</td>
 		</tr>
 
 		<tr class="field_option field_option_<?php echo $this->name;?>">
 			<td class="label">
-				<label><?php _e("Show All", 'acf');?></label>
+				<label><?php _e( "Show All", 'acf' );?></label>
 
 				<p class="description">
 					If the 'show all' categories option should be visible
 				</p>
 			</td>
 			<td>
-				<?php $this->parent->create_field(array(
-													   'type'    => 'radio',
-													   'name'    => 'fields[' . $key . '][show_all]',
-													   'value'   => $field['show_all'],
-													   'choices' => array(
-														   '1' => 'Yes',
-														   '0' => 'No',
-													   ),
-													   'layout'  => 'horizontal',
-												  ));
+				<?php $this->parent->create_field( array (
+														 'type'    => 'radio',
+														 'name'    => 'fields[' . $key . '][show_all]',
+														 'value'   => $field['show_all'],
+														 'choices' => array (
+															 '1' => 'Yes',
+															 '0' => 'No',
+														 ),
+														 'layout'  => 'horizontal',
+												   ) );
 				?>
 			</td>
 		</tr>
 
 		<tr class="field_option field_option_<?php echo $this->name;?>">
 			<td class="label">
-				<label><?php _e("Show None", 'acf');?></label>
+				<label><?php _e( "Show None", 'acf' );?></label>
 
 				<p class="description">
 					If the 'show none' categories option should be visible
 				</p>
 			</td>
 			<td>
-				<?php $this->parent->create_field(array(
-													   'type'    => 'radio',
-													   'name'    => 'fields[' . $key . '][show_none]',
-													   'value'   => $field['show_none'],
-													   'choices' => array(
-														   '1' => 'Yes',
-														   '0' => 'No',
-													   ),
-													   'layout'  => 'horizontal',
-												  ));
+				<?php $this->parent->create_field( array (
+														 'type'    => 'radio',
+														 'name'    => 'fields[' . $key . '][show_none]',
+														 'value'   => $field['show_none'],
+														 'choices' => array (
+															 '1' => 'Yes',
+															 '0' => 'No',
+														 ),
+														 'layout'  => 'horizontal',
+												   ) );
 				?>
 			</td>
 		</tr>
 
 		<tr class="field_option field_option_<?php echo $this->name;?>">
 			<td class="label">
-				<label><?php _e("Return Value", 'acf');?></label>
+				<label><?php _e( "Return Value", 'acf' );?></label>
 
 				<p class="description">The return type when retrieving value from API. ID, Name, Taxonomy, Parent, Link <a
 					href="http://codex.wordpress.org/Function_Reference/wp_dropdown_categories" target="_blank">Dropdown
@@ -393,19 +394,20 @@
 				</p>
 			</td>
 			<td>
-				<?php $this->parent->create_field(array(
-													   'type'    => 'select',
-													   'name'    => 'fields[' . $key . '][ret_val]',
-													   'value'   => $field['ret_val'],
-													   'choices' => array(
-														   'category_name'         => 'Category Name',
-														   'category_id'           => 'Category ID',
-														   'category_dropdown'     => 'Categories DropDown',
-														   'category_taxonomy'     => 'Categories Taxonomy',
-														   'category_parent'       => 'Categories Parent',
-														   'category_link'         => 'Categories Link'
-													   )
-												  ));
+				<?php $this->parent->create_field( array (
+														 'type'    => 'select',
+														 'name'    => 'fields[' . $key . '][ret_val]',
+														 'value'   => $field['ret_val'],
+														 'choices' => array (
+															 'category_slug'         => 'Categories Slug',
+															 'category_name'         => 'Category Name',
+															 'category_id'           => 'Category ID',
+															 'category_dropdown'     => 'Categories DropDown',
+															 'category_taxonomy'     => 'Categories Taxonomy',
+															 'category_parent'       => 'Categories Parent',
+															 'category_link'         => 'Categories Link'
+														 )
+												   ) );
 				?>
 			</td>
 		</tr>
@@ -413,49 +415,51 @@
 		<?php
 		}
 
-		/*--------------------------------------------------------------------------------------
-				 *
-				 *	pre_save_field
-				 *	- this function is called when saving your acf object. Here you can manipulate the
-				 *	field object and it's options before it gets saved to the database.
-				 *
-				 *	@author Elliot Condon
-				 *	@since 2.2.0
-				 *
-				 *-------------------------------------------------------------------------------------*/
 
-		function pre_save_field($field) {
+		/*--------------------------------------------------------------------------------------
+						 *
+						 *	pre_save_field
+						 *	- this function is called when saving your acf object. Here you can manipulate the
+						 *	field object and it's options before it gets saved to the database.
+						 *
+						 *	@author Elliot Condon
+						 *	@since 2.2.0
+						 *
+						 *-------------------------------------------------------------------------------------*/
+
+		function pre_save_field( $field ) {
 			// do stuff with field (mostly format options data)
 
-			return parent::pre_save_field($field);
+			return parent::pre_save_field( $field );
 		}
 
+
 		/*--------------------------------------------------------------------------------------
-				 *
-				 *	create_field
-				 *	- this function is called on edit screens to produce the html for this field
-				 *
-				 *  @author Nontas Ravazoulas
-				 *  @since 1.0.0
-				 *
-				 *-------------------------------------------------------------------------------------*/
+						 *
+						 *	create_field
+						 *	- this function is called on edit screens to produce the html for this field
+						 *
+						 *  @author Nontas Ravazoulas
+						 *  @since 1.0.0
+						 *
+						 *-------------------------------------------------------------------------------------*/
 
-		function create_field($field) {
-			$field['value'] = isset($field['value']) ? $field['value'] : '';
-			$type           = (isset($field['post_type'])) ? (empty($field['post_type']) ? 'post' : $field['post_type']) : 'post';
-			$child_of       = (isset($field['child_of'])) ? (empty($field['child_of']) ? 0 : $field['child_of']) : 0;
-			$parent         = (isset($field['parent'])) ? (empty($field['parent']) ? '' : $field['parent']) : '';
-			$hide_empty     = isset($field['hide_empty']) ? $field['hide_empty'] : '1';
-			$hierarchical   = isset($field['hierarchical']) ? $field['hierarchical'] : '1';
-			$taxonomy       = (isset($field['taxonomy'])) ? (empty($field['taxonomy']) ? 'category' : $field['taxonomy']) : 'category';
-			$include        = (isset($field['include'])) ? (empty($field['include']) ? '' : $field['include']) : '';
-			$exclude        = (isset($field['exclude'])) ? (empty($field['exclude']) ? '' : $field['exclude']) : '';
-			$orderby        = (isset($field['orderby'])) ? (empty($field['orderby']) ? 'name' : $field['orderby']) : 'name';
-			$order          = (isset($field['order'])) ? (empty($field['order']) ? 'ASC' : $field['order']) : 'ASC';
-			$show_all       = isset($field['show_all']) ? $field['show_all'] : '1';
-			$show_none      = isset($field['show_none']) ? $field['show_none'] : '1';
+		function create_field( $field ) {
+			$field['value'] = isset( $field['value'] ) ? $field['value'] : '';
+			$type           = ( isset( $field['post_type'] ) ) ? ( empty( $field['post_type'] ) ? 'post' : $field['post_type'] ) : 'post';
+			$child_of       = ( isset( $field['child_of'] ) ) ? ( empty( $field['child_of'] ) ? 0 : $field['child_of'] ) : 0;
+			$parent         = ( isset( $field['parent'] ) ) ? ( empty( $field['parent'] ) ? '' : $field['parent'] ) : '';
+			$hide_empty     = isset( $field['hide_empty'] ) ? $field['hide_empty'] : '1';
+			$hierarchical   = isset( $field['hierarchical'] ) ? $field['hierarchical'] : '1';
+			$taxonomy       = ( isset( $field['taxonomy'] ) ) ? ( empty( $field['taxonomy'] ) ? 'category' : $field['taxonomy'] ) : 'category';
+			$include        = ( isset( $field['include'] ) ) ? ( empty( $field['include'] ) ? '' : $field['include'] ) : '';
+			$exclude        = ( isset( $field['exclude'] ) ) ? ( empty( $field['exclude'] ) ? '' : $field['exclude'] ) : '';
+			$orderby        = ( isset( $field['orderby'] ) ) ? ( empty( $field['orderby'] ) ? 'name' : $field['orderby'] ) : 'name';
+			$order          = ( isset( $field['order'] ) ) ? ( empty( $field['order'] ) ? 'ASC' : $field['order'] ) : 'ASC';
+			$show_all       = isset( $field['show_all'] ) ? $field['show_all'] : '1';
+			$show_none      = isset( $field['show_none'] ) ? $field['show_none'] : '1';
 
-			$args = array(
+			$args = array (
 				'type'         => $type,
 				'child_of'     => $child_of,
 				'parent'       => $parent,
@@ -469,29 +473,29 @@
 				'pad_counts'   => 1
 			);
 
-			$categories     = get_categories($args);
+			$categories     = get_categories( $args );
 			$selected_value = $field['value'];
 			$is_selected    = '';
 			?>
 
-		<?php if ($field['display_type'] == 'drop_down') : ?>
+		<?php if ( $field['display_type'] == 'drop_down' ) : ?>
 			<select id="<?php echo $field['name'] ?>" class="<?php echo $field['class'] ?>" name="<?php echo $field['name'] ?>">
-				<?php if ($show_all): ?>
-				<?php if ($selected_value == "all") {
+				<?php if ( $show_all ): ?>
+				<?php if ( $selected_value == "all" ) {
 					$is_selected = 'selected="selected"';
 				} ?>
 				<option value="all" <?php echo $is_selected ?>>Show All</option>
 				<?php endif ?>
 
-				<?php if ($show_none): ?>
-				<?php if ($selected_value == "none") {
+				<?php if ( $show_none ): ?>
+				<?php if ( $selected_value == "none" ) {
 					$is_selected = 'selected="selected"';
 				} ?>
 				<option value="none" <?php echo $is_selected ?>>Show None</option>
 				<?php endif ?>
 
-				<?php foreach ($categories as $category) : ?>
-				<?php if ($category->slug == $selected_value) {
+				<?php foreach ( $categories as $category ) : ?>
+				<?php if ( $category->slug == $selected_value ) {
 					$is_selected = 'selected="selected"';
 				} else {
 					$is_selected = '';
@@ -501,10 +505,10 @@
 			</select>
 			<?php endif ?>
 
-		<?php if ($field['display_type'] == 'checkboxes') : ?>
+		<?php if ( $field['display_type'] == 'checkboxes' ) : ?>
 			<ul>
-				<?php if ($show_all): ?>
-				<?php if (in_array("all", $field['value'])) {
+				<?php if ( $show_all ): ?>
+				<?php if ( in_array( "all", $field['value'] ) ) {
 					$is_selected = 'checked';
 				} else {
 					$is_selected = '';
@@ -515,8 +519,8 @@
 				</li>
 				<?php endif ?>
 
-				<?php if ($show_none): ?>
-				<?php if (in_array("none", $field['value'])) {
+				<?php if ( $show_none ): ?>
+				<?php if ( in_array( "none", $field['value'] ) ) {
 					$is_selected = 'checked';
 				} else {
 					$is_selected = '';
@@ -527,9 +531,9 @@
 				</li>
 				<?php endif ?>
 
-				<?php foreach ($categories as $category) : ?>
-				<?php if (is_array($field['value'])): ?>
-					<?php if (in_array($category->slug, $field['value'])) {
+				<?php foreach ( $categories as $category ) : ?>
+				<?php if ( is_array( $field['value'] ) ): ?>
+					<?php if ( in_array( $category->slug, $field['value'] ) ) {
 						$is_selected = 'checked';
 					} else {
 						$is_selected = '';
@@ -545,21 +549,18 @@
 		<?php
 		}
 
+
 		/*--------------------------------------------------------------------------------------
-				 *
-				 *	admin_head
-				 *	- this function is called in the admin_head of the edit screen where your field
-				 *	is created. Use this function to create css and javascript to assist your
-				 *	create_field() function.
-				 *
-				 *	@author Elliot Condon
-				 *	@since 2.2.0
-				 *
-				 *-------------------------------------------------------------------------------------*/
-
-		function admin_head() {
-
-		}
+						 *
+						 *	admin_head
+						 *	- this function is called in the admin_head of the edit screen where your field
+						 *	is created. Use this function to create css and javascript to assist your
+						 *	create_field() function.
+						 *
+						 *	@author Elliot Condon
+						 *	@since 2.2.0
+						 *
+						 *-------------------------------------------------------------------------------------*/
 
 		/*--------------------------------------------------------------------------------------
 				 *
@@ -574,55 +575,56 @@
 				 *-------------------------------------------------------------------------------------*/
 
 		function admin_print_scripts() {
-
 		}
+
 
 		function admin_print_styles() {
-
 		}
 
-		/*--------------------------------------------------------------------------------------
-				 *
-				 *	update_value
-				 *	- this function is called when saving a post object that your field is assigned to.
-				 *	the function will pass through the 3 parameters for you to use.
-				 *
-				 *	@params
-				 *	- $post_id (int) - usefull if you need to save extra data or manipulate the current
-				 *	post object
-				 *	- $field (array) - usefull if you need to manipulate the $value based on a field option
-				 *	- $value (mixed) - the new value of your field.
-				 *
-				 *	@author Elliot Condon
-				 *	@since 2.2.0
-				 *
-				 *-------------------------------------------------------------------------------------*/
 
-		function update_value($post_id, $field, $value) {
+		/*--------------------------------------------------------------------------------------
+						 *
+						 *	update_value
+						 *	- this function is called when saving a post object that your field is assigned to.
+						 *	the function will pass through the 3 parameters for you to use.
+						 *
+						 *	@params
+						 *	- $post_id (int) - usefull if you need to save extra data or manipulate the current
+						 *	post object
+						 *	- $field (array) - usefull if you need to manipulate the $value based on a field option
+						 *	- $value (mixed) - the new value of your field.
+						 *
+						 *	@author Elliot Condon
+						 *	@since 2.2.0
+						 *
+						 *-------------------------------------------------------------------------------------*/
+
+		function update_value( $post_id, $field, $value ) {
 			// do stuff with value
 
 			// save value
-			parent::update_value($post_id, $field, $value);
+			parent::update_value( $post_id, $field, $value );
 		}
 
-		/*--------------------------------------------------------------------------------------
-				 *
-				 *	get_value
-				 *	- called from the edit page to get the value of your field. This function is useful
-				 *	if your field needs to collect extra data for your create_field() function.
-				 *
-				 *	@params
-				 *	- $post_id (int) - the post ID which your value is attached to
-				 *	- $field (array) - the field object.
-				 *
-				 *	@author Elliot Condon
-				 *	@since 2.2.0
-				 *
-				 *-------------------------------------------------------------------------------------*/
 
-		function get_value($post_id, $field) {
+		/*--------------------------------------------------------------------------------------
+						 *
+						 *	get_value
+						 *	- called from the edit page to get the value of your field. This function is useful
+						 *	if your field needs to collect extra data for your create_field() function.
+						 *
+						 *	@params
+						 *	- $post_id (int) - the post ID which your value is attached to
+						 *	- $field (array) - the field object.
+						 *
+						 *	@author Elliot Condon
+						 *	@since 2.2.0
+						 *
+						 *-------------------------------------------------------------------------------------*/
+
+		function get_value( $post_id, $field ) {
 			// get value
-			$value = parent::get_value($post_id, $field);
+			$value = parent::get_value( $post_id, $field );
 
 			// format value
 
@@ -630,39 +632,40 @@
 			return $value;
 		}
 
-		/*--------------------------------------------------------------------------------------
-				 *
-				 *	get_value_for_api
-				 *	- called from your template file when using the API functions (get_field, etc).
-				 *	This function is useful if your field needs to format the returned value
-				 *
-				 *	@params
-				 *	- $post_id (int) - the post ID which your value is attached to
-				 *	- $field (array) - the field object.
-				 *
-				 *	@author Elliot Condon
-				 *	@since 3.0.0
-				 *
-				 *-------------------------------------------------------------------------------------*/
 
-		function get_value_for_api($post_id, $field) {
+		/*--------------------------------------------------------------------------------------
+						 *
+						 *	get_value_for_api
+						 *	- called from your template file when using the API functions (get_field, etc).
+						 *	This function is useful if your field needs to format the returned value
+						 *
+						 *	@params
+						 *	- $post_id (int) - the post ID which your value is attached to
+						 *	- $field (array) - the field object.
+						 *
+						 *	@author Elliot Condon
+						 *	@since 3.0.0
+						 *
+						 *-------------------------------------------------------------------------------------*/
+
+		function get_value_for_api( $post_id, $field ) {
 			// get value
-			$value   = $this->get_value($post_id, $field);
+			$value   = $this->get_value( $post_id, $field );
 			$ret_val = '';
 
-			$type         = (isset($field['post_type'])) ? (empty($field['post_type']) ? 'post' : $field['post_type']) : 'post';
-			$child_of     = (isset($field['child_of'])) ? (empty($field['child_of']) ? 0 : $field['child_of']) : 0;
-			$parent       = (isset($field['parent'])) ? (empty($field['parent']) ? '' : $field['parent']) : '';
-			$hide_empty   = isset($field['hide_empty']) ? $field['hide_empty'] : '1';
-			$hierarchical = isset($field['hierarchical']) ? $field['hierarchical'] : '1';
-			$taxonomy     = (isset($field['taxonomy'])) ? (empty($field['taxonomy']) ? 'category' : $field['taxonomy']) : 'category';
-			$include      = (isset($field['include'])) ? (empty($field['include']) ? '' : $field['include']) : '';
-			$exclude      = (isset($field['exclude'])) ? (empty($field['exclude']) ? '' : $field['exclude']) : '';
-			$orderby      = (isset($field['orderby'])) ? (empty($field['orderby']) ? 'name' : $field['orderby']) : 'name';
-			$order        = (isset($field['order'])) ? (empty($field['order']) ? 'ASC' : $field['order']) : 'ASC';
+			$type         = ( isset( $field['post_type'] ) ) ? ( empty( $field['post_type'] ) ? 'post' : $field['post_type'] ) : 'post';
+			$child_of     = ( isset( $field['child_of'] ) ) ? ( empty( $field['child_of'] ) ? 0 : $field['child_of'] ) : 0;
+			$parent       = ( isset( $field['parent'] ) ) ? ( empty( $field['parent'] ) ? '' : $field['parent'] ) : '';
+			$hide_empty   = isset( $field['hide_empty'] ) ? $field['hide_empty'] : '1';
+			$hierarchical = isset( $field['hierarchical'] ) ? $field['hierarchical'] : '1';
+			$taxonomy     = ( isset( $field['taxonomy'] ) ) ? ( empty( $field['taxonomy'] ) ? 'category' : $field['taxonomy'] ) : 'category';
+			$include      = ( isset( $field['include'] ) ) ? ( empty( $field['include'] ) ? '' : $field['include'] ) : '';
+			$exclude      = ( isset( $field['exclude'] ) ) ? ( empty( $field['exclude'] ) ? '' : $field['exclude'] ) : '';
+			$orderby      = ( isset( $field['orderby'] ) ) ? ( empty( $field['orderby'] ) ? 'name' : $field['orderby'] ) : 'name';
+			$order        = ( isset( $field['order'] ) ) ? ( empty( $field['order'] ) ? 'ASC' : $field['order'] ) : 'ASC';
 			$is_all       = false;
 
-			$args = array(
+			$args = array (
 				'type'         => $type,
 				'child_of'     => $child_of,
 				'parent'       => $parent,
@@ -677,19 +680,22 @@
 				'echo'         => 0
 			);
 
-			if ($field['display_type'] == 'drop_down') {
-				if ($value == "all" || $value == "none") {
+			if ( $field['display_type'] == 'drop_down' ) {
+				if ( $value == "all" || $value == "none" ) {
 					return $value;
 				}
 
-				$value = get_term_by('slug', $value, $field['taxonomy']);
+				$value = get_term_by( 'slug', $value, $field['taxonomy'] );
 
-				switch ($field['ret_val']) {
+				switch ( $field['ret_val'] ) {
+					case 'category_slug':
+						$ret_val = $value->slug;
+						break;
 					case 'category_name':
 						$ret_val = $value->name;
 						break;
 					case 'category_dropdown':
-						return wp_dropdown_categories($args);
+						return wp_dropdown_categories( $args );
 						break;
 					case 'category_id':
 						$ret_val = $value->term_id;
@@ -701,80 +707,90 @@
 						$ret_val = $value->parent;
 						break;
 					case 'category_link':
-						$category_link = get_term_link($value->slug, $value->taxonomy);
+						$category_link = get_term_link( $value->slug, $value->taxonomy );
 						$ret_val       = $category_link;
 						break;
 				}
 			}
 
 
-			if ($field['display_type'] == 'checkboxes') {
-				$ret_val = array();
+			if ( $field['display_type'] == 'checkboxes' ) {
+				$ret_val = array ();
 
-				if (is_array($value)) {
-					if (in_array("none", $value)) {
+				if ( is_array( $value ) ) {
+					if ( in_array( "none", $value ) ) {
 						return $value;
 					}
 
-					if (in_array("all", $value)) {
-						$value  = get_categories($args);
+					if ( in_array( "all", $value ) ) {
+						$value  = get_categories( $args );
 						$is_all = true;
 					}
 				}
 
-				switch ($field['ret_val']) {
-					case 'category_name':
-						foreach ($value as $ret_value) {
-							if ($is_all) {
-								$value = get_term_by('slug', $ret_value->slug, $field['taxonomy']);
+				switch ( $field['ret_val'] ) {
+					case 'category_slug':
+						foreach ( $value as $ret_value ) {
+							if ( $is_all ) {
+								$value = get_term_by( 'slug', $ret_value->slug, $field['taxonomy'] );
 							} else {
-								$value = get_term_by('slug', $ret_value, $field['taxonomy']);
+								$value = get_term_by( 'slug', $ret_value, $field['taxonomy'] );
 							}
-							array_push($ret_val, $value->name);
+							array_push( $ret_val, $value->slug );
+						}
+						break;
+					case 'category_name':
+						foreach ( $value as $ret_value ) {
+							if ( $is_all ) {
+								$value = get_term_by( 'slug', $ret_value->slug, $field['taxonomy'] );
+							} else {
+								$value = get_term_by( 'slug', $ret_value, $field['taxonomy'] );
+							}
+							array_push( $ret_val, $value->name );
 						}
 						break;
 					case 'category_dropdown':
 						return null;
 						break;
 					case 'category_id':
-						foreach ($value as $ret_value) {
-							if ($is_all) {
-								$value = get_term_by('slug', $ret_value->slug, $field['taxonomy']);
+						foreach ( $value as $ret_value ) {
+							if ( $is_all ) {
+								$value = get_term_by( 'slug', $ret_value->slug, $field['taxonomy'] );
 							} else {
-								$value = get_term_by('slug', $ret_value, $field['taxonomy']);
+								$value = get_term_by( 'slug', $ret_value, $field['taxonomy'] );
 							}
-							array_push($ret_val, $value->term_id);
+							array_push( $ret_val, $value->term_id );
 						}
 						break;
 					case 'category_taxonomy':
-						foreach ($value as $ret_value) {
-							if ($is_all) {
-								$value = get_term_by('slug', $ret_value->slug, $field['taxonomy']);
+						foreach ( $value as $ret_value ) {
+							if ( $is_all ) {
+								$value = get_term_by( 'slug', $ret_value->slug, $field['taxonomy'] );
 							} else {
-								$value = get_term_by('slug', $ret_value, $field['taxonomy']);
+								$value = get_term_by( 'slug', $ret_value, $field['taxonomy'] );
 							}
-							array_push($ret_val, $value->taxonomy);
+							array_push( $ret_val, $value->taxonomy );
 						}
 						break;
 					case 'category_parent':
-						foreach ($value as $ret_value) {
-							if ($is_all) {
-								$value = get_term_by('slug', $ret_value->slug, $field['taxonomy']);
+						foreach ( $value as $ret_value ) {
+							if ( $is_all ) {
+								$value = get_term_by( 'slug', $ret_value->slug, $field['taxonomy'] );
 							} else {
-								$value = get_term_by('slug', $ret_value, $field['taxonomy']);
+								$value = get_term_by( 'slug', $ret_value, $field['taxonomy'] );
 							}
-							array_push($ret_val, $value->parent);
+							array_push( $ret_val, $value->parent );
 						}
 						break;
 					case 'category_link':
-						foreach ($value as $ret_value) {
-							if ($is_all) {
-								$value = get_term_by('slug', $ret_value->slug, $field['taxonomy']);
+						foreach ( $value as $ret_value ) {
+							if ( $is_all ) {
+								$value = get_term_by( 'slug', $ret_value->slug, $field['taxonomy'] );
 							} else {
-								$value = get_term_by('slug', $ret_value, $field['taxonomy']);
+								$value = get_term_by( 'slug', $ret_value, $field['taxonomy'] );
 							}
-							$category_link = get_term_link($value->slug, $value->taxonomy);
-							array_push($ret_val, $category_link);
+							$category_link = get_term_link( $value->slug, $value->taxonomy );
+							array_push( $ret_val, $category_link );
 						}
 						break;
 				}
@@ -782,7 +798,6 @@
 
 			return $ret_val;
 		}
-
 	}
 
 ?>
