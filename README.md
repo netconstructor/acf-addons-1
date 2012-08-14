@@ -41,4 +41,11 @@ If you decide to put the files in a sub folder then you can use something like t
 <h4>15-07-2012</h4>
 <h4>Added</h4>
 <p>Return type: <strong>Category Slug</strong></p>
-		
+
+
+<br>
+
+<h4>14-08-2012</h4>
+<h4>Added</h4>
+<p>Option: <strong>Show Parent</strong></p>
+<p>If true, displays Category Parent in a <em><strong>Parent->Child</strong></em> format in admin, in both 'Drop Down' and 'Check Boxes' return type</p>
