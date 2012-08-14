@@ -1,15 +1,15 @@
 <?php
 
 	/*
-		 *	Advanced Custom Fields - New field template
-		 *
-		 *	Create your field's functionality below and use the function:
-		 *	register_field($class_name, $file_path) to include the field
-		 *	in the acf plugin.
-		 *
-		 *	Documentation:
-		 *
-		 */
+	 *	Advanced Custom Fields - New field template
+	 *
+	 *	Create your field's functionality below and use the function:
+	 *	register_field($class_name, $file_path) to include the field
+	 *	in the acf plugin.
+	 *
+	 *	Documentation:
+	 *
+	 */
 
 	class Categories_field extends acf_Field {
 
@@ -788,7 +788,7 @@
 						}
 						break;
 					case 'category_dropdown':
-						return null;
+						return wp_dropdown_categories($args);
 						break;
 					case 'category_id':
 						foreach ($value as $ret_value) {
