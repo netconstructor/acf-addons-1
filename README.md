@@ -42,7 +42,6 @@ If you decide to put the files in a sub folder then you can use something like t
 <h4>Added</h4>
 <p>Return type: <strong>Category Slug</strong></p>
 
-
 <br>
 
 <h4>14-08-2012</h4>
