@@ -546,22 +546,27 @@
 					$is_selected = '';
 				} ?>
 				<li>
-					<input id="<?php echo $field['name'] . '[]' ?>" name="<?php echo $field['name'] . '[]' ?>"
+					<input id="<?php echo $field['key'] . '_all' ?>" name="<?php echo $field['name'] . '[]' ?>"
 						   type="checkbox" value="all" <?php echo $is_selected ?> />&nbsp;Show All
 				</li>
 				<?php endif ?>
 
-				<?php if ($show_none): ?>
+				<?php 
+                                if (!$show_none) {
+                                    $display_none = ' style="display:none"';
+                                } else {
+                                    $display_none = '';
+                                }
+                                ?>
 				<?php if (in_array("none", $field['value'])) {
 					$is_selected = 'checked';
 				} else {
 					$is_selected = '';
 				} ?>
-				<li>
-					<input id="<?php echo $field['name'] . '[]' ?>" name="<?php echo $field['name'] . '[]' ?>"
+				<li<?php echo $display_none; ?>>
+					<input id="<?php echo $field['key'] . '_none' ?>" name="<?php echo $field['name'] . '[]' ?>"
 						   type="checkbox" value="none" <?php echo $is_selected ?> />&nbsp;Show None
 				</li>
-				<?php endif ?>
 
 				<?php foreach ($categories as $category) : ?>
 				<?php if (is_array($field['value'])): ?>
@@ -578,11 +583,30 @@
 							<?php $category_name = get_cat_name($category->parent) . '->' . $category->name; ?>
 						<?php endif; ?>
 					<?php endif; ?>
-					<input id="<?php echo $field['name'] . '[]' ?>" name="<?php echo $field['name'] . '[]' ?>"
+					<input id="<?php echo $field['key'] . '_'.$category->slug; ?>" name="<?php echo $field['name'] . '[]' ?>"
 						   type="checkbox" value="<?php echo $category->slug ?>" <?php echo $is_selected ?> /> <?php echo $category_name ?>
 				</li>
 				<?php endforeach ?>
 			</ul>
+                        <script type="text/javascript">
+                        jQuery('#post').submit(function() {
+                            var any_checked = false;
+                            jQuery('.field-categories ul li input').each(function() {
+                                if(jQuery(this).is(':checked')) {
+                                    any_checked = true;
+                                }
+                                var field_name = jQuery(this).attr('name');
+                            });
+                            if(!any_checked) {
+                               var select_none_id = '#<?php echo $field['key'].'_none'; ?>';
+                               console.log('found '+select_none_id+': '+jQuery(select_none_id).attr('type'));
+                               jQuery(select_none_id).attr('checked','checked');
+                               console.log('found '+select_none_id+': '+jQuery(select_none_id).is(':checked'));
+                            }
+                            
+                            //return false;
+                        });
+                        </script>
 			<?php endif ?>
 		<?php
 		}
@@ -756,8 +780,10 @@
 				$ret_val = array ();
 
 				if (is_array($value)) {
+                                        // none is not a category - we don't need to return it
 					if (in_array("none", $value)) {
-						return $value;
+                                            $index = array_search('none',$value);
+                                            unset($value[$index]);
 					}
 
 					if (in_array("all", $value)) {
