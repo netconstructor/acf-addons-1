@@ -352,7 +352,7 @@
 				<?php $this->parent->create_field(array (
 						 'type'    => 'radio',
 						 'name'    => 'fields[' . $key . '][show_all]',
-						 'value'   => $field['show_all'],
+						 'value'   => (isset($field['show_all']) ? $field['show_all'] : null),
 						 'choices' => array (
 							 '1' => 'Yes',
 							 '0' => 'No',
@@ -375,7 +375,7 @@
 				<?php $this->parent->create_field(array (
 						 'type'    => 'radio',
 						 'name'    => 'fields[' . $key . '][show_none]',
-						 'value'   => $field['show_none'],
+						 'value'   => (isset($field['show_none']) ? $field['show_none'] : null),
 						 'choices' => array (
 							 '1' => 'Yes',
 							 '0' => 'No',
@@ -398,7 +398,7 @@
 				<?php $this->parent->create_field(array (
 						 'type'    => 'radio',
 						 'name'    => 'fields[' . $key . '][show_parent]',
-						 'value'   => $field['show_parent'],
+						 'value'   => (isset($field['show_parent']) ? $field['show_parent'] : null),
 						 'choices' => array (
 							 '1' => 'Yes',
 							 '0' => 'No',
