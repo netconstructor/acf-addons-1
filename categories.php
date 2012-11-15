@@ -551,13 +551,13 @@
 				</li>
 				<?php endif ?>
 
-				<?php 
-                                if (!$show_none) {
-                                    $display_none = ' style="display:none"';
-                                } else {
-                                    $display_none = '';
-                                }
-                                ?>
+				<?php
+                    if (!$show_none) {
+                        $display_none = ' style="display:none"';
+                    } else {
+                        $display_none = '';
+                    }
+                ?>
 				<?php if (in_array("none", $field['value'])) {
 					$is_selected = 'checked';
 				} else {
@@ -588,25 +588,23 @@
 				</li>
 				<?php endforeach ?>
 			</ul>
-                        <script type="text/javascript">
-                        jQuery('#post').submit(function() {
-                            var any_checked = false;
-                            jQuery('.field-categories ul li input').each(function() {
-                                if(jQuery(this).is(':checked')) {
-                                    any_checked = true;
-                                }
-                                var field_name = jQuery(this).attr('name');
-                            });
-                            if(!any_checked) {
-                               var select_none_id = '#<?php echo $field['key'].'_none'; ?>';
-                               console.log('found '+select_none_id+': '+jQuery(select_none_id).attr('type'));
-                               jQuery(select_none_id).attr('checked','checked');
-                               console.log('found '+select_none_id+': '+jQuery(select_none_id).is(':checked'));
-                            }
-                            
-                            //return false;
-                        });
-                        </script>
+            <script type="text/javascript">
+	            jQuery('#post').submit(function() {
+	                var any_checked = false;
+
+	                jQuery('.field-categories ul li input').each(function() {
+	                    if(jQuery(this).is(':checked')) {
+	                        any_checked = true;
+	                    }
+	                    var field_name = jQuery(this).attr('name');
+	                });
+
+	                if(!any_checked) {
+	                   var select_none_id = '#<?php echo $field['key'].'_none'; ?>';
+	                   jQuery(select_none_id).attr('checked','checked');
+	                }
+	            });
+            </script>
 			<?php endif ?>
 		<?php
 		}
