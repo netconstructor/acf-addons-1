@@ -48,3 +48,6 @@ If you decide to put the files in a sub folder then you can use something like t
 <h4>Added</h4>
 <p>Option: <strong>Show Parent</strong></p>
 <p>If true, displays Category Parent in a <em><strong>Parent->Child</strong></em> format in admin, in both 'Drop Down' and 'Check Boxes' return type</p>
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/netconstructor/acf-addons-1/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
